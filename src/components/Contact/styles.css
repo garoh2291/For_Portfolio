@@ -1,0 +1,8 @@
+.contact-layout {
+  width: 100%;
+  height: calc(100vh - 50px);
+  /* background: linear-gradient(0deg, #939598, #000000); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

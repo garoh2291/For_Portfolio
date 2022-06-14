@@ -1,0 +1,13 @@
+.project-main {
+  width: 100%;
+  height: calc(100% - 50px);
+  /* background: linear-gradient(45deg, #c0c0c0, #626262); */
+  background-color: #f9f8f8;
+  display: flex;
+}
+
+@media (max-width: 800px) {
+  .project-main {
+    flex-direction: column;
+  }
+}

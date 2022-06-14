@@ -1,0 +1,39 @@
+.single-task-wrapper {
+  width: 100%;
+  height: calc(100vh - 50px);
+  background-color: #fff;
+  display: flex;
+}
+.single-task-info {
+  padding: 50px 200px;
+  width: 60%;
+  height: 100%;
+  border-right: 3px solid #c7c7c764;
+}
+
+.single-task-header {
+  font-size: 30px;
+  width: 600px;
+  height: 40px;
+  padding: 5px;
+  transition: 0.5s;
+  border-radius: 10px;
+}
+
+.single-task-header:hover {
+  box-shadow: 1px 1px 10px #c7c7c7;
+}
+
+.single-task-description {
+  margin-top: 50px;
+  width: 600px;
+  height: 300px;
+  transition: 0.5s;
+  border-radius: 10px;
+  padding: 5px;
+  overflow-y: scroll;
+}
+
+.single-task-description:hover {
+  box-shadow: 1px 1px 10px #c7c7c7;
+}

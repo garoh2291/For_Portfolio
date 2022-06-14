@@ -1,0 +1,11 @@
+.filter-header {
+  width: 100%;
+  height: 50px;
+
+  color: #ffffff;
+  text-align: center;
+}
+
+.filter-header-text {
+  font-size: 30px;
+}

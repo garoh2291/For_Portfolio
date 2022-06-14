@@ -1,0 +1,19 @@
+.status_info {
+  width: 40%;
+  height: calc(100vh-50px);
+  padding: 50px 100px;
+}
+
+.status_info > h3 {
+  font-size: 30px;
+}
+
+.status_info > p {
+  margin-top: 30px;
+}
+
+.status_info > p > span {
+  font-size: 18px;
+  text-transform: capitalize;
+  color: tomato;
+}
