@@ -44,5 +44,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "engines": {
+    "name": "example-app",
+    "description": "a really cool app",
+    "version": "1.0.0",
+    "engines": {
+      "node": "16.x"
+    }
   }
 }
