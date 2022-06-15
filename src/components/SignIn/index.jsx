@@ -28,7 +28,7 @@ export const SignIn = () => {
     } = e.target;
 
     const authDataSend = {
-      email,
+      email : email.toLowerCase(),
       password,
     };
     dispatch(setUserThunk({ authDataSend, cb }));

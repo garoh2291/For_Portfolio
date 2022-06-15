@@ -36,8 +36,10 @@ export const SignUp = () => {
       password: { value: password },
     } = e.target;
 
+    
+
     const authDataSend = {
-      email,
+      email : email.toLowerCase(),
       password,
       name,
       surname,
