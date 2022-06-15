@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  Alert,
   Button,
   Col,
   Form,
   FormFeedback,
   FormGroup,
   Input,
-  Label,
 } from "reactstrap";
 import { useFormRegistr } from "../../helpers/forms";
 
@@ -25,7 +23,7 @@ export const SignUp = () => {
   const [isSendFail, setIsSendFail] = useState(false);
   const [isError, setIsError] = useState("");
 
-  const cb = () => navigate("/auth/sign-in", { replace: true });
+  const cb = () =>  navigate("/auth/sign-in", { replace: true });
   const regSubmit = (e) => {
     e.preventDefault();
     const {

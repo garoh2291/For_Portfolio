@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
@@ -15,11 +15,14 @@ import "./styles.css";
 import { setUserThunk } from "../../Redux/projectSlice";
 export const SignIn = () => {
   const [authData, authChange] = useFormLogIn();
+  const [isButtonWaiting , setIsButtonWaiting] = useState(false)
 
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const cb = () => navigate("/project", { replace: true });
+  
+  const cb = () => navigate("/project", { replace: true })
+  
   const authSubmit = (e) => {
     e.preventDefault();
     const {
@@ -31,7 +34,8 @@ export const SignIn = () => {
       email : email.toLowerCase(),
       password,
     };
-    dispatch(setUserThunk({ authDataSend, cb }));
+    setIsButtonWaiting(prev=> !prev)
+    dispatch(setUserThunk({ authDataSend, cb ,setIsButtonWaiting}));
   };
 
   return (
@@ -80,7 +84,14 @@ export const SignIn = () => {
           }}
           style={{ textAlign: "center" }}
         >
-          <Button>Login</Button>
+          <button
+          className={`${isButtonWaiting? "button--loading": ""} button `}
+          >
+            <span className="button__text ">
+            Login
+            </span>
+            
+            </button>
         </Col>
       </Form>
 

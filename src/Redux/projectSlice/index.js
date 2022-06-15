@@ -5,7 +5,7 @@ import { getToken } from "../../helpers";
 
 export const setUserThunk = createAsyncThunk(
   "project/setUserThunk",
-  function ({ authDataSend, cb }, { rejectWithValue, dispatch }) {
+  function ({ authDataSend, cb,setIsButtonWaiting }, { rejectWithValue, dispatch }) {
     fetch(`${BACKEND_URL}/user/sign-in`, {
       method: "POST",
       headers: {
@@ -16,12 +16,15 @@ export const setUserThunk = createAsyncThunk(
       .then((res) => res.json())
       .then((data) => {
         if (data.status || data.error) {
+          setIsButtonWaiting(prev=>!prev)
+
           throw new Error("Error");
+
         }
-        console.log(data.status, data.error);
         const { jwt, refreshToken } = data;
         localStorage.setItem("token", JSON.stringify(jwt));
         localStorage.setItem("refreshToken", JSON.stringify(refreshToken));
+        setIsButtonWaiting(prev=>!prev)
         dispatch(getUserDetails());
         window.setTimeout(() => {
           cb();

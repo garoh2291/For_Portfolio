@@ -49,7 +49,7 @@ export const TaskCard = ({
       </div>
 
       <i
-        class={`${
+        className={`${
           openedTime < 7 ? "short-time" : "long-time"
         } time-opened-icon bx bx-dots-horizontal-rounded`}
         title={`${openedTime} Days`}
