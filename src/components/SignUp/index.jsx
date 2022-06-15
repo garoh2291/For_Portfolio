@@ -143,7 +143,7 @@ export const SignUp = () => {
           }}
           style={{ textAlign: "center" }}
         >
-          <Button>Submit</Button>
+          <Button>Register</Button>
         </Col>
       </Form>
 

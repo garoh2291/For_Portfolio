@@ -80,7 +80,7 @@ export const SignIn = () => {
           }}
           style={{ textAlign: "center" }}
         >
-          <Button>Submit</Button>
+          <Button>Login</Button>
         </Col>
       </Form>
 
