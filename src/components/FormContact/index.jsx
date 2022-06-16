@@ -191,6 +191,9 @@ export const ContactForm = () => {
                 onChange={messageHandleChange}
                 name="message"
                 type="textarea"
+                style={{
+                  minHeight: "100px"
+                }}
                 placeholder="Type Your message"
                 invalid={!!messageData.message.error}
               />

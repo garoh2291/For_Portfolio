@@ -7,10 +7,11 @@ import {
   deleteTaskThunk,
   removeMultitapleTasksThunk,
 } from "../../../../Redux/projectSlice";
+import { NoTasks } from "../../../NoTask";
 import { TaskCard } from "../../../TaskCard";
 import "./styles.css";
 export const Body = () => {
-  const { tasks } = useSelector((state) => state.project);
+  const { tasks,status } = useSelector((state) => state.project);
   const dispatch = useDispatch();
   const [deletedTasksSet, setDeletedTasksSet] = useState(new Set());
 
@@ -39,18 +40,26 @@ export const Body = () => {
   };
 
   const changeEditMode = () => {
+    deletedTasksSet.clear();
+
     setTaskDeleteBatchMode((prev) => !prev);
+    console.log(deletedTasksSet);
+
   };
 
   const statushandle = (_id) => {
     dispatch(changeStatusThink(_id));
   };
 
+  if (status === "loading"){
+    console.log(status);
+  }
+
   if (!tasks) {
     return <PreLoader />;
   }
   if (tasks.length === 0) {
-    return <h2>No Tasks</h2>;
+    return <NoTasks />
   }
 
   return (

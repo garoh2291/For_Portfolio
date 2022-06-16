@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   isRequired,
+  minLength6,
   minLength3,
   validateEmail,
   maxLength30,
@@ -17,7 +18,7 @@ export const useFormLogIn = () => {
     password: {
       value: "",
       error: undefined,
-      validations: [isRequired, minLength3, maxLength30],
+      validations: [isRequired, minLength6, maxLength30],
     },
   });
 
@@ -62,12 +63,12 @@ export const useFormRegistr = () => {
     password: {
       value: "",
       error: undefined,
-      validations: [isRequired, minLength3, maxLength30],
+      validations: [isRequired, minLength6, maxLength30],
     },
     confirmPassword: {
       value: "",
       error: undefined,
-      validations: [isRequired, minLength3, maxLength30],
+      validations: [isRequired, minLength6, maxLength30],
     },
     name: {
       value: "",

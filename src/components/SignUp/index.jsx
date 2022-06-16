@@ -23,7 +23,7 @@ export const SignUp = () => {
   const [isSendFail, setIsSendFail] = useState(false);
   const [isError, setIsError] = useState("");
 
-  const cb = () =>  navigate("/auth/sign-in", { replace: true });
+  const cb = () => navigate("/auth/sign-in", { replace: true });
   const regSubmit = (e) => {
     e.preventDefault();
     const {

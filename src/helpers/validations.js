@@ -21,6 +21,8 @@ export const validateEmail = (value) => {
     : "Please Write Email";
 };
 
+export const minLength6 = minLength(6);
 export const minLength3 = minLength(3);
+
 export const maxLength400 = maxLength(400);
 export const maxLength30 = maxLength(30);

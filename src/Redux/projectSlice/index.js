@@ -5,7 +5,7 @@ import { getToken } from "../../helpers";
 
 export const setUserThunk = createAsyncThunk(
   "project/setUserThunk",
-  function ({ authDataSend, cb,setIsButtonWaiting }, { rejectWithValue, dispatch }) {
+  function ({ authDataSend, cb,setIsButtonWaiting,setIsError }, { rejectWithValue, dispatch }) {
     fetch(`${BACKEND_URL}/user/sign-in`, {
       method: "POST",
       headers: {
@@ -17,9 +17,9 @@ export const setUserThunk = createAsyncThunk(
       .then((data) => {
         if (data.status || data.error) {
           setIsButtonWaiting(prev=>!prev)
+          setIsError(true)
 
-          throw new Error("Error");
-
+          throw new Error("Invalid login or password");
         }
         const { jwt, refreshToken } = data;
         localStorage.setItem("token", JSON.stringify(jwt));
@@ -31,7 +31,7 @@ export const setUserThunk = createAsyncThunk(
         }, 0);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.message);
       });
   }
 );
@@ -269,6 +269,8 @@ const projectSlice = createSlice({
       _id: null,
       token: getToken(),
     },
+    error: null,
+    status: null
   },
   reducers: {
     setUser(state, action) {
@@ -331,6 +333,14 @@ const projectSlice = createSlice({
       };
     },
   },
+  extraReducers:{
+    [deleteTaskThunk.pending]:(state,action)=>{
+      state.status = "loading"
+    },
+    [deleteTaskThunk.fulfilled]:(state,action)=>{
+      state.status = "resolved"
+    },
+  }
 });
 
 export const {

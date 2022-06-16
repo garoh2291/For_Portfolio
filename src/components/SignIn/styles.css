@@ -66,6 +66,23 @@
   animation: button-loading-spinner 1s ease infinite;
 }
 
+.error_message_login {
+  text-align: center;
+  color: rgb(233, 76, 76);
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  visibility: visible;
+  opacity: 1;
+  transition: all .35s ease-in-out;
+}
+
+.error_message_login_none {
+  visibility: hidden;
+  opacity: 0;
+}
+
+
 @keyframes button-loading-spinner {
   from {
     transform: rotate(0turn);

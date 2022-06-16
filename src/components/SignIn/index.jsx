@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
-  Button,
   Col,
   Form,
   FormFeedback,
@@ -14,7 +13,14 @@ import { useFormLogIn } from "../../helpers/forms";
 import "./styles.css";
 import { setUserThunk } from "../../Redux/projectSlice";
 export const SignIn = () => {
+
+  ///for error message when write wrong details
+  const [isError , setIsError] =  useState(false)
+
+
+  
   const [authData, authChange] = useFormLogIn();
+
   const [isButtonWaiting , setIsButtonWaiting] = useState(false)
 
   const navigate = useNavigate();
@@ -35,8 +41,10 @@ export const SignIn = () => {
       password,
     };
     setIsButtonWaiting(prev=> !prev)
-    dispatch(setUserThunk({ authDataSend, cb ,setIsButtonWaiting}));
+    dispatch(setUserThunk({ authDataSend, cb ,setIsButtonWaiting,setIsError}));
   };
+
+  console.log(isError);
 
   return (
     <div className="sign-in">
@@ -78,6 +86,7 @@ export const SignIn = () => {
             )}
           </Col>
         </FormGroup>
+        <p className={`${isError?`error_message_login`:"error_message_login_none"}`}>Invalid login or password</p>
         <Col
           sm={{
             size: 12,
