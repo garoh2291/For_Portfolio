@@ -1,0 +1,10 @@
+.project_header_layout {
+  width: 20%;
+  height: 100%;
+  background-color: #0c4492;
+}
+/* @media (max-width: 850px) {
+  .project_header_layout {
+    height: calc(100% - 50px);
+  }
+} */

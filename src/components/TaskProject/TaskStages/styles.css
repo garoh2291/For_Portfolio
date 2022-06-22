@@ -1,0 +1,58 @@
+.stage-colums {
+  height: auto;
+  width: 30%;
+  padding: 10px;
+  color: #1e1f21;
+  border-radius: 10px;
+  transition: 0.3s;
+  overflow: scroll;
+}
+.stage-colums.closed {
+  height: 70px;
+  overflow: hidden;
+}
+
+.stage-colums:hover {
+  box-shadow: 0 0px 10px 2px #c7c7c7;
+}
+
+.stage_header {
+  width: 100%;
+  height: 50px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stage_header > h6 {
+  font-size: 25px;
+  color: #2e67b7;
+}
+
+.stage_header > i {
+  color: #2e67b7;
+  cursor: pointer;
+  transition: 0.35s;
+}
+
+.stage_header > i:hover {
+  color: #083c84;
+}
+
+.task_card_section {
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 850px) {
+  .stage-colums {
+    width: 100%;
+    margin-top: 30px;
+  }
+}
