@@ -5,7 +5,10 @@ import { getToken } from "../../helpers";
 
 export const setUserThunk = createAsyncThunk(
   "project/setUserThunk",
-  function ({ authDataSend, cb,setIsButtonWaiting,setIsError }, { rejectWithValue, dispatch }) {
+  function (
+    { authDataSend, cb, setIsButtonWaiting, setIsError },
+    { rejectWithValue, dispatch }
+  ) {
     fetch(`${BACKEND_URL}/user/sign-in`, {
       method: "POST",
       headers: {
@@ -16,22 +19,22 @@ export const setUserThunk = createAsyncThunk(
       .then((res) => res.json())
       .then((data) => {
         if (data.status || data.error) {
-          setIsButtonWaiting(prev=>!prev)
-          setIsError(true)
-
-          throw new Error("Invalid login or password");
+          setIsButtonWaiting((prev) => !prev);
+          setIsError(true);
+          throw new Error(data.message);
         }
         const { jwt, refreshToken } = data;
         localStorage.setItem("token", JSON.stringify(jwt));
         localStorage.setItem("refreshToken", JSON.stringify(refreshToken));
-        setIsButtonWaiting(prev=>!prev)
+        setIsButtonWaiting((prev) => !prev);
         dispatch(getUserDetails());
         window.setTimeout(() => {
           cb();
         }, 0);
       })
       .catch((err) => {
-        console.log(err.message);
+        console.log(err);
+        rejectWithValue(err);
       });
   }
 );
@@ -49,6 +52,26 @@ export const getUserDetails = createAsyncThunk(
       .then((data) => {
         dispatch(setUser({ data }));
       });
+  }
+);
+
+export const getAllUsersAsync = createAsyncThunk(
+  "project/getAllUsers",
+  function (_, { dispatch }) {
+    fetch(`${BACKEND_URL}/user/get-all`, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${getToken()}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error || data.errors) {
+          throw new Error("something wrong");
+        }
+        dispatch(setUsers({ data }));
+      })
+      .catch((err) => console.log(err));
   }
 );
 
@@ -139,6 +162,7 @@ export const setTasksAsync = createAsyncThunk(
         if (data.errors) {
           throw new Error(data.errors[0].message);
         }
+
         dispatch(setTasks({ data }));
       })
       .catch((err) => {
@@ -269,8 +293,9 @@ const projectSlice = createSlice({
       _id: null,
       token: getToken(),
     },
+    users: null,
     error: null,
-    status: null
+    status: null,
   },
   reducers: {
     setUser(state, action) {
@@ -292,6 +317,13 @@ const projectSlice = createSlice({
       return {
         ...state,
         tasks,
+      };
+    },
+    setUsers(state, action) {
+      const users = action.payload.data;
+      return {
+        ...state,
+        users: users,
       };
     },
     setTasks(state, action) {
@@ -333,14 +365,6 @@ const projectSlice = createSlice({
       };
     },
   },
-  extraReducers:{
-    [deleteTaskThunk.pending]:(state,action)=>{
-      state.status = "loading"
-    },
-    [deleteTaskThunk.fulfilled]:(state,action)=>{
-      state.status = "resolved"
-    },
-  }
 });
 
 export const {
@@ -351,6 +375,7 @@ export const {
   removeMultitapleTasks,
   deleteTask,
   changedStatusTask,
+  setUsers,
 } = projectSlice.actions;
 
 export default projectSlice.reducer;

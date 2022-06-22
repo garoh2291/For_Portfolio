@@ -6,7 +6,7 @@ import { RoutesComponents } from "./Routes";
 function App() {
   return (
     <BrowserRouter>
-      <div className="app">
+      <div className="App">
         <Header />
         <RoutesComponents />
       </div>

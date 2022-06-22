@@ -82,7 +82,6 @@ export const ContactForm = () => {
       name,
       message,
     };
-    console.log(messageFormData);
 
     fetch(`${BACKEND_URL}/form`, {
       method: "POST",
@@ -192,7 +191,7 @@ export const ContactForm = () => {
                 name="message"
                 type="textarea"
                 style={{
-                  minHeight: "100px"
+                  minHeight: "100px",
                 }}
                 placeholder="Type Your message"
                 invalid={!!messageData.message.error}
