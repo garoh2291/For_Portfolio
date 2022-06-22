@@ -50,6 +50,27 @@
 .long-time {
   color: red;
 }
+
+.priority_icons {
+  font-size: 20px;
+}
+
+.minor_priority {
+  color: #3d8bff;
+}
+
+.major_priority {
+  color: #fa3d3d;
+}
+
+.time_and_priority {
+  height: 100%;
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .assignee_details {
   height: 20px;
   width: 20px;
