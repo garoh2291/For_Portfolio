@@ -3,8 +3,8 @@
   height: 100%;
   background-color: #0c4492;
 }
-/* @media (max-width: 850px) {
+@media (max-width: 850px) {
   .project_header_layout {
-    height: calc(100% - 50px);
+    display: none;
   }
-} */
+}

@@ -4,15 +4,19 @@ import { getWindowDimensions } from "../../../helpers/windowSizes";
 import { useGetTaskAssigneeDetails } from "../../../hooks/users-details";
 import "./styles.css";
 
-export const TaskCard = memo(({ taskInfo }) => {
+export const TaskCard = memo(({ taskInfo, editModalOpen, deleteHandler }) => {
   // const { width } = getWindowDimensions();
-  const { title, created_at, description, owner, priority } = taskInfo;
+  const { title, created_at, description, _id, owner, priority } = taskInfo;
   const { TotalDays } = useCalculateDate(created_at);
   const { name, surname } = useGetTaskAssigneeDetails(owner);
-  console.log(priority);
   return (
     <div className="task_card">
-      <h6 className="task_header">{title}</h6>
+      <div className="delete_task">
+        <i className="bx bxs-x-square" onClick={() => deleteHandler(_id)}></i>
+      </div>
+      <h6 className="task_header" onClick={() => editModalOpen(taskInfo)}>
+        {title}
+      </h6>
       <p className="task_description">{description}</p>
       <div className="task_details">
         <div className="time_and_priority">
@@ -33,8 +37,8 @@ export const TaskCard = memo(({ taskInfo }) => {
         </div>
 
         <div className="assignee_details">
-          <p title={name ? `${name} ${surname}` : "Unassigned"}>
-            {name ? `${name[0]} ${surname[0]}` : "U"}
+          <p title={name !== null ? `${name} ${surname}` : "Unassigned"}>
+            {name !== null ? `${name[0]} ${surname[0]}` : "U"}
           </p>
         </div>
       </div>

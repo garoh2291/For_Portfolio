@@ -3,7 +3,12 @@ import { useState } from "react";
 import { TaskCard } from "../TaskCard";
 import "./styles.css";
 
-export const TaskStages = ({ stage, taskList }) => {
+export const TaskStages = ({
+  stage,
+  taskList,
+  editModalOpen,
+  deleteHandler,
+}) => {
   const [isStageClosed, setIsStageClosed] = useState(false);
   const changeStageHeight = () => {
     setIsStageClosed((prev) => !prev);
@@ -22,10 +27,17 @@ export const TaskStages = ({ stage, taskList }) => {
       <div className="task_card_section">
         {taskList.length ? (
           taskList.map((task) => {
-            return <TaskCard key={task._id} taskInfo={task} />;
+            return (
+              <TaskCard
+                key={task._id}
+                taskInfo={task}
+                editModalOpen={editModalOpen}
+                deleteHandler={deleteHandler}
+              />
+            );
           })
         ) : (
-          <p>No taks</p>
+          <p>No tasks</p>
         )}
       </div>
     </div>

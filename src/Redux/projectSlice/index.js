@@ -160,6 +160,9 @@ export const setTasksAsync = createAsyncThunk(
     getTasksRequest(query)
       .then((data) => {
         if (data.errors) {
+          if (data.error.status === 401) {
+            dispatch(removeUser());
+          }
           throw new Error(data.errors[0].message);
         }
 
@@ -202,7 +205,7 @@ export const removeMultitapleTasksThunk = createAsyncThunk(
 export const deleteTaskThunk = createAsyncThunk(
   "tasks/deleteTaskThunk",
   function (_id, { dispatch, rejectWithValue }) {
-    fetch(`https://todo-list-tco.herokuapp.com/task/${_id}`, {
+    fetch(`${BACKEND_URL}/task/${_id}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
@@ -253,6 +256,29 @@ export const getSingleTask = createAsyncThunk(
     })
       .then((res) => res.json())
       .then((data) => setSingleTask(data));
+  }
+);
+
+export const editTaskThunk = createAsyncThunk(
+  "project/editTaskThunk",
+  function ({ _id, editFormData, onClose }, { dispatch }) {
+    fetch(`${BACKEND_URL}/task/${_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify(editFormData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error || data.errors) {
+          throw new Error("Something wrong");
+        }
+        dispatch(editTask({ data }));
+        onClose();
+      })
+      .catch((err) => console.log(err));
   }
 );
 
@@ -364,6 +390,19 @@ const projectSlice = createSlice({
         tasks,
       };
     },
+    editTask(state, action) {
+      const editedTask = action.payload.data;
+      const tasks = state.tasks.map((task) => {
+        if (task._id === editedTask._id) {
+          return editedTask;
+        }
+        return task;
+      });
+      return {
+        ...state,
+        tasks,
+      };
+    },
   },
 });
 
@@ -376,6 +415,7 @@ export const {
   deleteTask,
   changedStatusTask,
   setUsers,
+  editTask,
 } = projectSlice.actions;
 
 export default projectSlice.reducer;

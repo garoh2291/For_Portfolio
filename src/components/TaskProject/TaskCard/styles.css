@@ -7,7 +7,7 @@
   border-radius: 10px;
   transition: 0.35s;
   padding: 10px;
-  cursor: pointer;
+  position: relative;
 }
 
 .task_card:hover {
@@ -16,19 +16,22 @@
 
 .task_header {
   width: 80%;
-  text-overflow: "ellipsis";
-  white-space: "nowrap";
-  overflow: "hidden";
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   border-bottom: 1px solid #6a6c70;
+  color: #3d8bff;
+  cursor: pointer;
 }
 
 .task_description {
   margin-top: 5px;
   margin-bottom: 5px;
   height: 30px;
-  text-overflow: "ellipsis";
-  white-space: "nowrap";
-  overflow: "hidden";
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 80%;
   border-bottom: 1px solid #6a6c70;
   font-size: 14px;
 }
@@ -37,6 +40,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.task_details i {
+  cursor: pointer;
 }
 
 .time-opened-icons {
@@ -65,7 +72,7 @@
 
 .time_and_priority {
   height: 100%;
-  width: 30%;
+  width: 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -80,4 +87,26 @@
   background-color: #6a6c70;
   color: #ffffff;
   border-radius: 50%;
+  cursor: pointer;
+}
+
+.delete_task {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.delete_task > i {
+  color: #fa3d3d;
+  font-size: 20px;
+}
+
+.delete_task > i:hover {
+  color: #f81d1d;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { generateQuery } from "../../helpers";
 import { useAuth } from "../../hooks/user-auth";
@@ -7,14 +7,15 @@ import {
   setTasksAsync,
   getAllUsersAsync,
 } from "../../Redux/projectSlice";
+import { TaskDetailsModal } from "../TaskDetailsModal";
 import { HeaderSection } from "./HeaderSection";
 import { MainSection } from "./MainSection";
 import "./styles.css";
 
 export const TaskProject = () => {
   const [searchSortQuery, setSearchSortQuery] = useState([]);
-  // const [isEditOpen, setIsEditOpen] = useState(false);
-  // const [editModalTask, setEditModalTask] = useState(null);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [modalTask, setModalTask] = useState(null);
   const dispatch = useDispatch();
   const { name } = useAuth();
 
@@ -38,22 +39,22 @@ export const TaskProject = () => {
     }
   };
 
-  // const editModalOpen = useCallback(
-  //   (task) => {
-  //     if (isEditOpen) {
-  //       setIsEditOpen(false);
-  //       setEditModalTask(null);
-  //     } else {
-  //       setIsEditOpen(true);
-  //       setEditModalTask(task);
-  //     }
-  //   },
-  //   [isEditOpen]
-  // );
+  const editModalOpen = useCallback(
+    (task) => {
+      if (isEditOpen) {
+        setIsEditOpen(false);
+        setModalTask(null);
+      } else {
+        setIsEditOpen(true);
+        setModalTask(task);
+      }
+    },
+    [isEditOpen]
+  );
 
   useEffect(() => {
     dispatch(getAllUsersAsync());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getUserDetails());
@@ -66,8 +67,14 @@ export const TaskProject = () => {
 
   return (
     <div className="task_project_section">
-      <HeaderSection />
-      <MainSection />
+      <HeaderSection getTasks={getTasksClosure} />
+      <MainSection getTasks={getTasksClosure} editModalOpen={editModalOpen} />
+      {isEditOpen && (
+        <TaskDetailsModal
+          onClose={() => setIsEditOpen(false)}
+          modalTask={modalTask}
+        />
+      )}
     </div>
   );
 };
