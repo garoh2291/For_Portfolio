@@ -16,8 +16,13 @@ export const TaskProject = () => {
   const [searchSortQuery, setSearchSortQuery] = useState([]);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [modalTask, setModalTask] = useState(null);
+  const [isAddNewTaskModalOpen, setIsAddNewTaskModalOpen] = useState(false);
   const dispatch = useDispatch();
   const { name } = useAuth();
+
+  const setAddNewTaskModal = () => {
+    setIsAddNewTaskModalOpen((prev) => !prev);
+  };
 
   const getTasksClosure = (filterEntries) => {
     const newArr = searchSortQuery.filter((item) => {
@@ -68,7 +73,11 @@ export const TaskProject = () => {
   return (
     <div className="task_project_section">
       <HeaderSection getTasks={getTasksClosure} />
-      <MainSection getTasks={getTasksClosure} editModalOpen={editModalOpen} />
+      <MainSection
+        getTasks={getTasksClosure}
+        editModalOpen={editModalOpen}
+        setAddNewTaskModal={setAddNewTaskModal}
+      />
       {isEditOpen && (
         <TaskDetailsModal
           onClose={() => setIsEditOpen(false)}
