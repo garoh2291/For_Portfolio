@@ -43,7 +43,13 @@ export const MainSection = ({ getTasks, editModalOpen }) => {
       />
       {width < 850 && (
         <div className="submenu">
-          <div className="add_new_task"></div>
+          <div className="submenu_content">
+            <div className="add_new_task">
+              <div className="add_new_task_content">
+                <span className="add_new_task_text">+</span>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

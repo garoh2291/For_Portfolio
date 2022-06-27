@@ -23,6 +23,7 @@ export const setUserThunk = createAsyncThunk(
           setIsError(true);
           throw new Error(data.message);
         }
+
         const { jwt, refreshToken } = data;
         localStorage.setItem("token", JSON.stringify(jwt));
         localStorage.setItem("refreshToken", JSON.stringify(refreshToken));
@@ -67,8 +68,12 @@ export const getAllUsersAsync = createAsyncThunk(
       .then((res) => res.json())
       .then((data) => {
         if (data.error || data.errors) {
+          if (data.error.status === 401) {
+            dispatch(removeUser());
+          }
           throw new Error("something wrong");
         }
+
         dispatch(setUsers({ data }));
       })
       .catch((err) => console.log(err));
