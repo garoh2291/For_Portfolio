@@ -5,7 +5,11 @@ import { PreLoader } from "../../../Pages/PreLoader";
 import { deleteTaskThunk } from "../../../Redux/projectSlice";
 import { TaskStages } from "../TaskStages";
 import "./styles.css";
-export const MainSection = ({ getTasks, editModalOpen }) => {
+export const MainSection = ({
+  getTasks,
+  editModalOpen,
+  setAddNewTaskModal,
+}) => {
   const { tasks } = useSelector((state) => state.project);
   const dispatch = useDispatch();
   const deleteHandler = (_id) => {
