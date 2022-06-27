@@ -1,0 +1,11 @@
+.task_project_section {
+  width: 100%;
+  height: calc(100vh - 50px);
+  display: flex;
+}
+
+@media (max-width: 850px) {
+  .task_project_section {
+    height: auto;
+  }
+}

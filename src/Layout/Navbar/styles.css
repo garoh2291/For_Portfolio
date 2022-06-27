@@ -14,10 +14,12 @@
 .nav_logo a {
   text-decoration: none;
   color: #ffffff;
+  letter-spacing: 5px;
 }
 
 .nav_menu > li > a {
-  font-weight: 700;
+  font-weight: 500;
+  letter-spacing: 1px;
   color: #ffffff;
   text-decoration: none;
   font-size: 18px;

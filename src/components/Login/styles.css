@@ -7,7 +7,7 @@
   font-weight: 300;
   font-size: 15px;
   line-height: 1.7;
-  color: #c4c3ca;
+  color: #3d8bff;
   /* background-color: #1f2029; */
   overflow: hidden;
   display: flex;
@@ -16,6 +16,7 @@
 .login_section .left_side {
   width: 50%;
   height: 100%;
+  display: flex;
 }
 
 @media (max-width: 580px) {

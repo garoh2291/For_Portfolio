@@ -1,7 +1,8 @@
 .layout-header {
   width: 100%;
   height: 50px;
-  background-color: #000000;
+  background: linear-gradient(30deg, #2d79e6 -47.88%, #093d87 107.96%);
+  color: #d5d8f6;
   display: flex;
   align-items: center;
 }

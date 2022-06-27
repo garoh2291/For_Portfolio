@@ -23,7 +23,7 @@ export const SingleTask = () => {
 
   useEffect(() => {
     dispatch(getSingleTask({ setSingleTask, taskId }));
-  }, [taskId]);
+  }, [taskId,dispatch]);
 
   if (!singleTask) {
     return <PreLoader />;
