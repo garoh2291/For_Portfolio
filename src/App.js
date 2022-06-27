@@ -1,12 +1,12 @@
 import { Header } from "./Layout/Header";
 import { BrowserRouter } from "react-router-dom";
-import "./app.css";
+import "./App.css";
 import { RoutesComponents } from "./Routes";
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="app">
+      <div className="App">
         <Header />
         <RoutesComponents />
       </div>

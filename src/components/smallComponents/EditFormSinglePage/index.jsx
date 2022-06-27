@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button } from "reactstrap";
-import { BACKEND_URL } from "../../../data";
 import { useEditForm } from "../../../helpers/forms";
 import { editSinglePageTaskThunk } from "../../../Redux/projectSlice";
 

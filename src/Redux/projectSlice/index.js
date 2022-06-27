@@ -5,7 +5,10 @@ import { getToken } from "../../helpers";
 
 export const setUserThunk = createAsyncThunk(
   "project/setUserThunk",
-  function ({ authDataSend, cb }, { rejectWithValue, dispatch }) {
+  function (
+    { authDataSend, cb, setIsButtonWaiting, setIsError },
+    { rejectWithValue, dispatch }
+  ) {
     fetch(`${BACKEND_URL}/user/sign-in`, {
       method: "POST",
       headers: {
@@ -16,12 +19,15 @@ export const setUserThunk = createAsyncThunk(
       .then((res) => res.json())
       .then((data) => {
         if (data.status || data.error) {
-          throw new Error("Error");
+          setIsButtonWaiting((prev) => !prev);
+          setIsError(true);
+          throw new Error(data.message);
         }
-        console.log(data.status, data.error);
+
         const { jwt, refreshToken } = data;
         localStorage.setItem("token", JSON.stringify(jwt));
         localStorage.setItem("refreshToken", JSON.stringify(refreshToken));
+        setIsButtonWaiting((prev) => !prev);
         dispatch(getUserDetails());
         window.setTimeout(() => {
           cb();
@@ -29,6 +35,7 @@ export const setUserThunk = createAsyncThunk(
       })
       .catch((err) => {
         console.log(err);
+        rejectWithValue(err);
       });
   }
 );
@@ -46,6 +53,30 @@ export const getUserDetails = createAsyncThunk(
       .then((data) => {
         dispatch(setUser({ data }));
       });
+  }
+);
+
+export const getAllUsersAsync = createAsyncThunk(
+  "project/getAllUsers",
+  function (_, { dispatch }) {
+    fetch(`${BACKEND_URL}/user/get-all`, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${getToken()}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error || data.errors) {
+          if (data.error.status === 401) {
+            dispatch(removeUser());
+          }
+          throw new Error("something wrong");
+        }
+
+        dispatch(setUsers({ data }));
+      })
+      .catch((err) => console.log(err));
   }
 );
 
@@ -134,8 +165,12 @@ export const setTasksAsync = createAsyncThunk(
     getTasksRequest(query)
       .then((data) => {
         if (data.errors) {
+          if (data.error.status === 401) {
+            dispatch(removeUser());
+          }
           throw new Error(data.errors[0].message);
         }
+
         dispatch(setTasks({ data }));
       })
       .catch((err) => {
@@ -175,7 +210,7 @@ export const removeMultitapleTasksThunk = createAsyncThunk(
 export const deleteTaskThunk = createAsyncThunk(
   "tasks/deleteTaskThunk",
   function (_id, { dispatch, rejectWithValue }) {
-    fetch(`https://todo-list-tco.herokuapp.com/task/${_id}`, {
+    fetch(`${BACKEND_URL}/task/${_id}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
@@ -229,6 +264,29 @@ export const getSingleTask = createAsyncThunk(
   }
 );
 
+export const editTaskThunk = createAsyncThunk(
+  "project/editTaskThunk",
+  function ({ _id, editFormData, onClose }, { dispatch }) {
+    fetch(`${BACKEND_URL}/task/${_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify(editFormData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error || data.errors) {
+          throw new Error("Something wrong");
+        }
+        dispatch(editTask({ data }));
+        onClose();
+      })
+      .catch((err) => console.log(err));
+  }
+);
+
 export const editSinglePageTaskThunk = createAsyncThunk(
   "project,editSinglePageTaskThunk",
   function ({
@@ -266,6 +324,9 @@ const projectSlice = createSlice({
       _id: null,
       token: getToken(),
     },
+    users: null,
+    error: null,
+    status: null,
   },
   reducers: {
     setUser(state, action) {
@@ -287,6 +348,13 @@ const projectSlice = createSlice({
       return {
         ...state,
         tasks,
+      };
+    },
+    setUsers(state, action) {
+      const users = action.payload.data;
+      return {
+        ...state,
+        users: users,
       };
     },
     setTasks(state, action) {
@@ -327,6 +395,19 @@ const projectSlice = createSlice({
         tasks,
       };
     },
+    editTask(state, action) {
+      const editedTask = action.payload.data;
+      const tasks = state.tasks.map((task) => {
+        if (task._id === editedTask._id) {
+          return editedTask;
+        }
+        return task;
+      });
+      return {
+        ...state,
+        tasks,
+      };
+    },
   },
 });
 
@@ -338,6 +419,8 @@ export const {
   removeMultitapleTasks,
   deleteTask,
   changedStatusTask,
+  setUsers,
+  editTask,
 } = projectSlice.actions;
 
 export default projectSlice.reducer;

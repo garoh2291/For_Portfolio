@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, {  useState } from "react";
 import { AddNewTaskModal } from "../../../AddNewTaskModal";
 import { NewTaskButton } from "../../../smallComponents/NewTaskButton";
 import { SearchInput } from "../../../smallComponents/SearchInput";

@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  Alert,
   Button,
   Col,
   Form,
   FormFeedback,
   FormGroup,
   Input,
-  Label,
 } from "reactstrap";
 import { useFormRegistr } from "../../helpers/forms";
 
@@ -143,7 +141,7 @@ export const SignUp = () => {
           }}
           style={{ textAlign: "center" }}
         >
-          <Button>Submit</Button>
+          <Button>Register</Button>
         </Col>
       </Form>
 

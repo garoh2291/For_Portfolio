@@ -1,0 +1,66 @@
+.task_modal_body {
+  min-height: 300px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.modal-header {
+  background-color: #093d87;
+  color: #f1efef;
+}
+
+.btn-close {
+  background-color: #f1efef;
+}
+
+.description_section {
+  width: 70%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.additional_task_details {
+  border: 1px solid;
+  width: 30%;
+  min-height: 400px;
+}
+
+.head_text_modal {
+  font-size: 25px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 5px;
+  transition: 0.5s;
+  border-radius: 10px;
+  width: 400px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.head_text_modal:hover {
+  box-shadow: 1px 1px 10px #c7c7c7;
+}
+
+.body_text_modal {
+  min-height: 400px;
+  transition: 0.5s;
+  border-radius: 10px;
+  padding: 5px;
+  overflow-y: scroll;
+}
+
+.body_text_modal:hover {
+  background: #f1efef;
+}
+
+@media (max-width: 500px) {
+  .description_section {
+    width: 100%;
+    height: auto;
+  }
+  .additional_task_details {
+    width: 100%;
+    min-height: 100px;
+  }
+}

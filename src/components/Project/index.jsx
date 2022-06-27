@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { BACKEND_URL } from "../../data";
 import { generateQuery } from "../../helpers";
 import { getUserDetails, setTasksAsync } from "../../Redux/projectSlice";
 import { FilterSection } from "./FilterSection";
@@ -12,10 +11,10 @@ import "./styles.css";
 
 export const Project = () => {
   const [searchSortQuery, setSearchSortQuery] = useState([]);
-  const [isEditOpen, setIsEditOpen] = useState(false);
-  const [editModalTask, setEditModalTask] = useState(null);
+  // const [isEditOpen, setIsEditOpen] = useState(false);
+  // const [editModalTask, setEditModalTask] = useState(null);
   const dispatch = useDispatch();
-  const { name, surname } = useAuth();
+  const { name } = useAuth();
 
   const getTasksClosure = (filterEntries) => {
     const newArr = searchSortQuery.filter((item) => {
@@ -37,18 +36,18 @@ export const Project = () => {
     }
   };
 
-  const editModalOpen = useCallback(
-    (task) => {
-      if (isEditOpen) {
-        setIsEditOpen(false);
-        setEditModalTask(null);
-      } else {
-        setIsEditOpen(true);
-        setEditModalTask(task);
-      }
-    },
-    [isEditOpen]
-  );
+  // const editModalOpen = useCallback(
+  //   (task) => {
+  //     if (isEditOpen) {
+  //       setIsEditOpen(false);
+  //       setEditModalTask(null);
+  //     } else {
+  //       setIsEditOpen(true);
+  //       setEditModalTask(task);
+  //     }
+  //   },
+  //   [isEditOpen]
+  // );
 
   useEffect(() => {
     dispatch(getUserDetails());
