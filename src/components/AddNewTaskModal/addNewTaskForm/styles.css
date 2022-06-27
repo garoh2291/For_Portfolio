@@ -1,0 +1,10 @@
+.add_new_task_form_section {
+  width: 100%;
+  min-height: 500px;
+  border: 1px solid;
+}
+
+.new_task_form {
+  width: 90%;
+  height: auto;
+}

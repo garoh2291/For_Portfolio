@@ -50,7 +50,12 @@ export const MainSection = ({
           <div className="submenu_content">
             <div className="add_new_task">
               <div className="add_new_task_content">
-                <span className="add_new_task_text">+</span>
+                <span
+                  className="add_new_task_text"
+                  onClick={setAddNewTaskModal}
+                >
+                  +
+                </span>
               </div>
             </div>
           </div>

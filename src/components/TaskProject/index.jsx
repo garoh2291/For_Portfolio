@@ -7,6 +7,7 @@ import {
   setTasksAsync,
   getAllUsersAsync,
 } from "../../Redux/projectSlice";
+import { AddNewTaskModal } from "../AddNewTaskModal";
 import { TaskDetailsModal } from "../TaskDetailsModal";
 import { HeaderSection } from "./HeaderSection";
 import { MainSection } from "./MainSection";
@@ -83,6 +84,9 @@ export const TaskProject = () => {
           onClose={() => setIsEditOpen(false)}
           modalTask={modalTask}
         />
+      )}
+      {isAddNewTaskModalOpen && (
+        <AddNewTaskModal onClose={setAddNewTaskModal} />
       )}
     </div>
   );

@@ -8,7 +8,7 @@
 }
 
 .login_form_section {
-  width: 400px;
+  width: 90%;
   height: 90%;
   border-radius: 20px;
   display: flex;
@@ -154,6 +154,6 @@
     margin-bottom: 50px;
   }
   .login_form {
-    font-size: 100%;
+    font-size: 120%;
   }
 }
