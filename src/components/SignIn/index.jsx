@@ -41,7 +41,7 @@ export const SignIn = () => {
   return (
     <div className="sign-in">
       <div className="login_form_section">
-        <h3 className="login-header"> Please Login </h3>
+        <h3 className="login-header"> Please Loogin </h3>
         <img src={logoSrc} alt="pic" />
 
         <form onSubmit={authSubmit} className="login_form">
