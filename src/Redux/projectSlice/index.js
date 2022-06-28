@@ -232,7 +232,7 @@ export const deleteTaskThunk = createAsyncThunk(
 
 export const changeStatusThink = createAsyncThunk(
   "project/changeStatusThink",
-  function (_id, { dispatch }) {
+  function ({ _id, value }, { dispatch }) {
     fetch(`${BACKEND_URL}/task/${_id}`, {
       headers: {
         "Content-Type": "application/json",
@@ -240,12 +240,32 @@ export const changeStatusThink = createAsyncThunk(
       },
       method: "PUT",
       body: JSON.stringify({
-        status: "done",
+        status: value,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
-        dispatch(changedStatusTask({ data }));
+        dispatch(changedTaskDetails({ data }));
+      });
+  }
+);
+
+export const changeTaskDetailsThunk = createAsyncThunk(
+  "project/changeTaskDetailsThunk",
+  function ({ _id, loggedId }, { dispatch }) {
+    fetch(`${BACKEND_URL}/task/${_id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${getToken()}`,
+      },
+      method: "PUT",
+      body: JSON.stringify({
+        assignee: loggedId,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch(changedTaskDetails({ data }));
       });
   }
 );
@@ -321,7 +341,7 @@ const projectSlice = createSlice({
     user: {
       name: null,
       surname: null,
-      _id: null,
+      loggedId: null,
       token: getToken(),
     },
     users: null,
@@ -332,7 +352,7 @@ const projectSlice = createSlice({
     setUser(state, action) {
       state.user.surname = action.payload.data.surname;
       state.user.name = action.payload.data.name;
-      state.user._id = action.payload.data._id;
+      state.user.loggedId = action.payload.data._id;
     },
     removeUser(state, action) {
       state.user.surname = null;
@@ -382,7 +402,7 @@ const projectSlice = createSlice({
         tasks,
       };
     },
-    changedStatusTask(state, action) {
+    changedTaskDetails(state, action) {
       const changedStatusTask = action.payload.data;
       const tasks = state.tasks.map((task) => {
         if (task._id === changedStatusTask._id) {
@@ -418,7 +438,7 @@ export const {
   setTasks,
   removeMultitapleTasks,
   deleteTask,
-  changedStatusTask,
+  changedTaskDetails,
   setUsers,
   editTask,
 } = projectSlice.actions;

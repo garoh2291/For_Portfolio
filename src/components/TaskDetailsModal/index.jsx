@@ -1,15 +1,29 @@
 import React, { useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import { getWindowDimensions } from "../../helpers/windowSizes";
-import { editTaskThunk } from "../../Redux/projectSlice";
+import { useGetTaskAssigneeDetails } from "../../hooks/users-details";
+import {
+  changeTaskDetailsThunk,
+  editTaskThunk,
+} from "../../Redux/projectSlice";
 import "./styles.css";
 
 export const TaskDetailsModal = ({ onClose, modalTask }) => {
   const dispatch = useDispatch();
-  const { title, created_at, description, owner, priority, date, _id } =
-    modalTask;
+  const {
+    title,
+    created_at,
+    description,
+    owner,
+    priority,
+    date,
+    assignee,
+    _id,
+  } = modalTask;
   const { width } = getWindowDimensions();
+  const { assigneeName, assigneeSurname } = useGetTaskAssigneeDetails(assignee);
+  const { name, loggedId } = useSelector((state) => state.project.user);
 
   const [isbuttonDisabled, setIsButtondisabled] = useState(true);
 
@@ -50,12 +64,17 @@ export const TaskDetailsModal = ({ onClose, modalTask }) => {
     dispatch(editTaskThunk({ _id, editFormData, onClose }));
   }, []);
 
+  const changeAssigneeToMe = () => {
+    dispatch(changeTaskDetailsThunk({ _id, loggedId }));
+  };
+
   return (
     <Modal
       toggle={onClose}
       isOpen={true}
       size={"xl"}
-      fullscreen={width > 500 ? false : true}
+      fullscreen={width > 620 ? false : true}
+      className={"task_description_modal"}
     >
       <ModalHeader toggle={onClose} className={"modal_header_text_section"}>
         <p
@@ -81,7 +100,24 @@ export const TaskDetailsModal = ({ onClose, modalTask }) => {
             {description}
           </p>
         </div>
-        <div className="additional_task_details"></div>
+        <div className="additional_task_details">
+          <div className="assignee_details_description">
+            <p>Assignee:</p>
+            <p>
+              {assigneeName
+                ? `${assigneeName} ${assigneeSurname}`
+                : "Unassigned"}
+            </p>
+          </div>
+          <div className="assignee_to_me_button_section">
+            <button
+              className="assignee_to_me_button"
+              onClick={changeAssigneeToMe}
+            >
+              Assign to me
+            </button>
+          </div>
+        </div>
       </ModalBody>
       <ModalFooter>
         <Button
