@@ -5,12 +5,12 @@ export const useGetTaskAssigneeDetails = (_id) => {
   const assigneeUser = users.find((user) => user._id === _id);
   if (!assigneeUser) {
     return {
-      name: null,
-      surname: null,
+      assigneeName: null,
+      assigneeSurname: null,
     };
   }
   return {
-    name: assigneeUser.name,
-    surname: assigneeUser.surname,
+    assigneeName: assigneeUser.name,
+    assigneeSurname: assigneeUser.surname,
   };
 };

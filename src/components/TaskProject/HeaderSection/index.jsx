@@ -9,7 +9,9 @@ import "./styles.css";
 import { TaskAssignee } from "./TaskAssignee";
 
 export const HeaderSection = ({ getTasks, setAddNewTaskModal }) => {
-  const { name, surname, _id } = useSelector((state) => state.project.user);
+  const { name, surname, loggedId } = useSelector(
+    (state) => state.project.user
+  );
   const navigate = useNavigate();
   const cb = () => navigate("/auth/sign-in", { replace: true });
   const dispatch = useDispatch();
@@ -26,14 +28,14 @@ export const HeaderSection = ({ getTasks, setAddNewTaskModal }) => {
   };
   const handleOwner = () => {
     getTasks({
-      queryRoute: "owner",
-      queryValue: _id,
+      queryRoute: "assignee",
+      queryValue: loggedId,
     });
   };
 
   const handleAllTask = () => {
     getTasks({
-      queryRoute: "owner",
+      queryRoute: "assignee",
       queryValue: "",
     });
   };
