@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { generateQuery } from "../../helpers";
-import { useAuth } from "../../hooks/user-auth";
 import {
   getUserDetails,
   setTasksAsync,
   getAllUsersAsync,
 } from "../../Redux/projectSlice";
+import { AddNewTaskModal } from "../AddNewTaskModal";
 import { TaskDetailsModal } from "../TaskDetailsModal";
 import { HeaderSection } from "./HeaderSection";
 import { MainSection } from "./MainSection";
@@ -18,7 +18,6 @@ export const TaskProject = () => {
   const [modalTask, setModalTask] = useState(null);
   const [isAddNewTaskModalOpen, setIsAddNewTaskModalOpen] = useState(false);
   const dispatch = useDispatch();
-  const { name } = useAuth();
 
   const setAddNewTaskModal = () => {
     setIsAddNewTaskModalOpen((prev) => !prev);
@@ -72,7 +71,10 @@ export const TaskProject = () => {
 
   return (
     <div className="task_project_section">
-      <HeaderSection getTasks={getTasksClosure} />
+      <HeaderSection
+        getTasks={getTasksClosure}
+        setAddNewTaskModal={setAddNewTaskModal}
+      />
       <MainSection
         getTasks={getTasksClosure}
         editModalOpen={editModalOpen}
@@ -83,6 +85,9 @@ export const TaskProject = () => {
           onClose={() => setIsEditOpen(false)}
           modalTask={modalTask}
         />
+      )}
+      {isAddNewTaskModalOpen && (
+        <AddNewTaskModal onClose={setAddNewTaskModal} />
       )}
     </div>
   );

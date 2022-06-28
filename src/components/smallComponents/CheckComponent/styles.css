@@ -1,0 +1,13 @@
+.checked-components {
+  width: 100%;
+  min-height: 400px;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; */
+}
+
+.check_component_wrapper {
+  margin-top: 20px;
+  margin-left: 10px;
+}

@@ -15,7 +15,6 @@ export const MainSection = ({
   const deleteHandler = (_id) => {
     dispatch(deleteTaskThunk(_id));
   };
-
   const { width } = getWindowDimensions();
 
   if (!tasks) {
@@ -50,7 +49,12 @@ export const MainSection = ({
           <div className="submenu_content">
             <div className="add_new_task">
               <div className="add_new_task_content">
-                <span className="add_new_task_text">+</span>
+                <span
+                  className="add_new_task_text"
+                  onClick={setAddNewTaskModal}
+                >
+                  +
+                </span>
               </div>
             </div>
           </div>
