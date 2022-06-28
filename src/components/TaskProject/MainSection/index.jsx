@@ -15,7 +15,6 @@ export const MainSection = ({
   const deleteHandler = (_id) => {
     dispatch(deleteTaskThunk(_id));
   };
-
   const { width } = getWindowDimensions();
 
   if (!tasks) {

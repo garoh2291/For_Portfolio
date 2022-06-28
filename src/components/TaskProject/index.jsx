@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { generateQuery } from "../../helpers";
-import { useAuth } from "../../hooks/user-auth";
 import {
   getUserDetails,
   setTasksAsync,
@@ -19,7 +18,6 @@ export const TaskProject = () => {
   const [modalTask, setModalTask] = useState(null);
   const [isAddNewTaskModalOpen, setIsAddNewTaskModalOpen] = useState(false);
   const dispatch = useDispatch();
-  const { name } = useAuth();
 
   const setAddNewTaskModal = () => {
     setIsAddNewTaskModalOpen((prev) => !prev);
@@ -73,7 +71,10 @@ export const TaskProject = () => {
 
   return (
     <div className="task_project_section">
-      <HeaderSection getTasks={getTasksClosure} />
+      <HeaderSection
+        getTasks={getTasksClosure}
+        setAddNewTaskModal={setAddNewTaskModal}
+      />
       <MainSection
         getTasks={getTasksClosure}
         editModalOpen={editModalOpen}

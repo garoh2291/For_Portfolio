@@ -2,9 +2,82 @@
   width: 20%;
   height: 100%;
   background-color: #0c4492;
+  color: #ffffff;
 }
 @media (max-width: 850px) {
   .project_header_layout {
     display: none;
   }
+}
+
+.logged_user {
+  height: 50px;
+}
+
+.head_section_log {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px;
+}
+
+.logged_user {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #e5ebf6 61.59%, #ffffff 100%);
+  color: #ff7a7a;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: default;
+}
+
+.logout_section {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #e5ebf6 61.59%, #ffffff 100%);
+  color: #0c4492;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.35s;
+}
+
+.logout_section:hover {
+  color: #ff7a7a;
+}
+
+.sort_content_head {
+  font-size: 25px;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.new_task_add_section {
+  width: 100%;
+  height: 40px;
+  color: #ffffff;
+  border-bottom: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.new_task_add_section span {
+  cursor: pointer;
+  transition: 0.35s;
+}
+
+.new_task_add_section span:hover {
+  color: #ff7a7a;
 }

@@ -1,10 +1,57 @@
 .add_new_task_form_section {
   width: 100%;
-  min-height: 500px;
-  border: 1px solid;
+  min-height: 300px;
 }
 
 .new_task_form {
-  width: 90%;
+  width: 100%;
   height: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.new_task_form input {
+  width: 100%;
+  height: 50px;
+  margin-top: 5px;
+}
+
+.new_task_form textarea {
+  margin-top: 5px;
+
+  min-height: 100px;
+}
+
+.new_task_form select {
+  width: 50%;
+  height: 30px;
+  margin-top: 5px;
+  margin-bottom: 30px;
+}
+
+.new_task_form label:not(:first-child) {
+  margin-top: 15px;
+}
+
+.add_new_task_button {
+  width: 100px;
+  height: 40px;
+  background-color: #3d8bff;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.due_date_label {
+  margin-top: 15px;
+}
+
+.add_task_date {
+  width: 100px !important;
+  text-align: center;
+  height: 30px !important;
 }

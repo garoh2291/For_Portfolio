@@ -1,7 +1,9 @@
 import { Input } from "reactstrap";
 
 const styleForSort = {
-  width: "100px",
+  width: "90%",
+  margin: "20px auto",
+  height: "40px",
 };
 
 export const SortSelect = ({ handleSort }) => {
