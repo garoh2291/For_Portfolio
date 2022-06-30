@@ -23,7 +23,14 @@ export const TaskDetailsModal = ({ onClose, modalTask }) => {
   } = modalTask;
   const { width } = getWindowDimensions();
   const { assigneeName, assigneeSurname } = useGetTaskAssigneeDetails(assignee);
-  const { name, loggedId } = useSelector((state) => state.project.user);
+  const { name, surname, loggedId } = useSelector(
+    (state) => state.project.user
+  );
+
+  const [assignedUserDetails, setAssignedUserDetails] = useState({
+    name: assigneeName,
+    surname: assigneeSurname,
+  });
 
   const [isbuttonDisabled, setIsButtondisabled] = useState(true);
 
@@ -66,6 +73,13 @@ export const TaskDetailsModal = ({ onClose, modalTask }) => {
 
   const changeAssigneeToMe = () => {
     dispatch(changeTaskDetailsThunk({ _id, loggedId }));
+    setAssignedUserDetails((prev) => {
+      return {
+        ...prev,
+        name: name,
+        surname: surname,
+      };
+    });
   };
 
   return (
@@ -105,7 +119,7 @@ export const TaskDetailsModal = ({ onClose, modalTask }) => {
             <p>Assignee:</p>
             <p>
               {assigneeName
-                ? `${assigneeName} ${assigneeSurname}`
+                ? `${assignedUserDetails.name} ${assignedUserDetails.name}`
                 : "Unassigned"}
             </p>
           </div>
