@@ -11,6 +11,7 @@ export const MainSection = ({
   setAddNewTaskModal,
 }) => {
   const { tasks } = useSelector((state) => state.project);
+
   const dispatch = useDispatch();
   const deleteHandler = (_id) => {
     dispatch(deleteTaskThunk(_id));
@@ -20,9 +21,11 @@ export const MainSection = ({
   if (!tasks) {
     return <PreLoader />;
   }
-  const backlogTasks = tasks.filter((task) => task.status === "backlog");
-  const inProgressTasks = tasks.filter((task) => task.status === "in progress");
-  const doneTasks = tasks.filter((task) => task.status === "done");
+
+  const backlogTasks = tasks.filter((task) => task.status === "backlog") || [];
+  const inProgressTasks =
+    tasks.filter((task) => task.status === "in progress") || [];
+  const doneTasks = tasks.filter((task) => task.status === "done") || [];
 
   return (
     <div className="main_section_layout">
