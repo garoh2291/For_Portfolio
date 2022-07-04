@@ -22,10 +22,13 @@ export const MainSection = ({
     return <PreLoader />;
   }
 
-  const backlogTasks = tasks.filter((task) => task.status === "backlog") || [];
-  const inProgressTasks =
-    tasks.filter((task) => task.status === "in progress") || [];
-  const doneTasks = tasks.filter((task) => task.status === "done") || [];
+  const backlogTasks = tasks.filter((task) => task.status === "backlog");
+  const inProgressTasks = tasks.filter((task) => task.status === "in progress");
+  const doneTasks = tasks.filter((task) => task.status === "done");
+
+  if (!backlogTasks || !inProgressTasks || !doneTasks) {
+    return <PreLoader />;
+  }
 
   return (
     <div className="main_section_layout">
